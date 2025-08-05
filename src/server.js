@@ -13,7 +13,13 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(cors());
 
-  app.use(pino({ transport: { target: 'pino-pretty' } }));
+  app.use(
+    pino({
+      transport: {
+        target: 'pino-pretty',
+      },
+    }),
+  );
 
   app.get('/contacts', async (req, res) => {
     const contacts = await getAllContacts();
@@ -24,7 +30,7 @@ export const setupServer = () => {
     });
   });
 
-  app.get('contacts/:id', async (req, res, next) => {
+  app.get('/contacts/:id', async (req, res, next) => {
     const id = req.params;
     const contact = await getContactById(id);
 
