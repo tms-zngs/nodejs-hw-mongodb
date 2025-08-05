@@ -13,7 +13,7 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(cors());
 
-  app.use(pino({ transport: { target: 'pinno-pretty' } }));
+  app.use(pino({ transport: { target: 'pino-pretty' } }));
 
   app.get('/contacts', async (req, res) => {
     const contacts = await getAllContacts();
