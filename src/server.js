@@ -22,9 +22,9 @@ export const setupServer = () => {
     }),
   );
 
-  app.use('/', router);
+  app.use(router);
 
-  app.use('*', notFoundHandler);
+  app.use(notFoundHandler);
 
   app.use(errorHandler);
 
