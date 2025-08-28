@@ -1,53 +1,34 @@
 import { ContactsCollection } from '../db/models/contact.js';
-import { calculatePaginationData } from '../utils/calculatePaginationData.js';
-import { SORT_ORDER } from '../constants/index.js';
 
 export const getAllContacts = async ({
   page,
   perPage,
-  sortOrder = SORT_ORDER.ASC,
-  sortBy = '_id',
+  sortBy,
+  sortOrder,
+  userId,
 }) => {
-  const limit = perPage;
-  const skip = (page - 1) * perPage;
-
-  const contactsQuery = ContactsCollection.find();
-  const contactsCount = await ContactsCollection.find()
-    .merge(contactsQuery)
-    .countDocuments();
-
-  const contacts = await contactsQuery
-    .skip(skip)
-    .limit(limit)
+  return ContactsCollection.find({ userId })
     .sort({ [sortBy]: sortOrder })
-    .exec();
-
-  const paginationData = calculatePaginationData(contactsCount, perPage, page);
-
-  return {
-    data: contacts,
-    ...paginationData,
-  };
+    .skip((page - 1) * perPage)
+    .limit(perPage);
 };
 
-export const getContactById = async (id) => {
-  const contact = await ContactsCollection.findById(id);
-  return contact;
+export const getContactById = async (contactId, userId) => {
+  return ContactsCollection.findOne({ _id: contactId, userId });
 };
 
 export const createContact = async (payload) => {
-  const contact = await ContactsCollection.create(payload);
-  return contact;
+  return ContactsCollection.create(payload);
 };
 
-export async function updateContact(id, payload) {
-  const contact = await ContactsCollection.findByIdAndUpdate(id, payload, {
-    new: true,
-  });
-  return contact;
-}
+export const deleteContact = async (contactId, userId) => {
+  return ContactsCollection.findOneAndDelete({ _id: contactId, userId });
+};
 
-export const deleteContact = async (id) => {
-  const contact = await ContactsCollection.findOneAndDelete(id);
-  return contact;
+export const updateContact = async (contactId, payload, userId) => {
+  return ContactsCollection.findOneAndUpdate(
+    { _id: contactId, userId },
+    payload,
+    { new: true },
+  );
 };

@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { isValidObjectId } from 'mongoose';
 
 const datePattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}$/;
 
@@ -33,6 +34,15 @@ export const createContactSchema = Joi.object({
     }),
   createdAt: Joi.string().pattern(datePattern).optional().messages({
     'string.pattern.base': 'Date must be in format YYYY-MM-DDTHH:mm:ss.SSSSSS',
+  }),
+  userId: Joi.string().custom((value, helper) => {
+    const isValidId = isValidObjectId(value);
+
+    if (!isValidId) {
+      return helper.message('Not valid userId');
+    }
+
+    return value;
   }),
 });
 
