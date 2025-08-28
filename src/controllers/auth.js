@@ -3,7 +3,7 @@ import {
   loginUser,
   logoutUser,
   refreshUsersSession,
-} from '../services/auth';
+} from '../services/auth.js';
 import { ONE_DAY } from '../constants.js';
 
 export const registerUserController = async (req, res) => {
