@@ -4,7 +4,7 @@ import {
   logoutUser,
   refreshUsersSession,
 } from '../services/auth';
-import { ONE_DAY } from '../constants';
+import { ONE_DAY } from '../constants.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
