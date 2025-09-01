@@ -12,7 +12,6 @@ import {
   updateContactSchema,
 } from '../validation/validationSchema.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { validateParams } from '../middlewares/validateParams.js';
 import { isValidId } from '../middlewares/isValidId.js';
 import { authenticate } from '../middlewares/authenticate.js';
 
@@ -39,7 +38,7 @@ ContactsRouter.delete(
 ContactsRouter.patch(
   '/:contactId',
   isValidId,
-  validateParams(updateContactSchema),
+  validateBody(updateContactSchema),
   ctrlWrapper(patchContactController),
 );
 
