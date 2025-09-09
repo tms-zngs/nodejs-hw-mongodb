@@ -1,0 +1,54 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Contacts service
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: no description yet
+
+tags:
+  - name: Contacts
+    description: Operations with contacts.
+  - name: Auth
+    description: Auth operations.
+
+servers:
+  - url: http://localhost:3000
+  - url: https://contacts-service-b38a.onrender.com
+
+security:
+  - bearerAuth: []
+
+paths:
+  /contacts:
+    get:
+      $ref: ../swagger/paths/contacts/get.yaml
+    post:
+      $ref: ../swagger/paths/contacts/post.yaml
+
+  /contacts/{contactId}:
+    get:
+      $ref: ../swagger/paths/contacts/{id}/get.yaml
+    patch:
+      $ref: ../swagger/paths/contacts/{id}/patch.yaml
+    delete:
+      $ref: ../swagger/paths/contacts/{id}/delete.yaml
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+  schemas:
+    Contact:
+      $ref: ../swagger/components/schemas/contact.yaml
+    ContactCreate:
+      $ref: ../swagger/components/schemas/contactCreate.yaml
+    ContactUpdate:
+      $ref: ../swagger/components/schemas/contactUpdate.yaml
+
+  responses:
+    NotFound:
+      $ref: ../swagger/components/responses/404.yaml

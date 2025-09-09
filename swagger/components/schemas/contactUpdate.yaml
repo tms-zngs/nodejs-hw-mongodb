@@ -1,0 +1,33 @@
+type: object
+description: Send at least one field to update
+minProperties: 1
+properties:
+  name:
+    type: string
+    minLength: 3
+    maxLength: 30
+    example: 'Thomas Müller'
+  phoneNumber:
+    type: string
+    pattern: '^\+?[0-9\s\-()]+$'
+    example: '+49 160 0000000'
+  email:
+    type: string
+    format: email
+    example: 'thomas.m@example.com'
+  isFavourite:
+    type: boolean
+    example: true
+  contactType:
+    type: string
+    enum: [work, home, personal]
+    example: home
+  photo:
+    type: string
+    description: URL to the contact photo
+    example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'
+  createdAt:
+    type: string
+    description: YYYY-MM-DDTHH:mm:ss.SSSSSS
+    pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}$'
+    example: '2025-09-09T12:34:56.123456'

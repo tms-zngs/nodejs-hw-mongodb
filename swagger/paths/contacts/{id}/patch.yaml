@@ -1,0 +1,48 @@
+tags:
+  - Contacts
+summary: Update contact (partial)
+operationId: updateContact
+description: Update contact fields by ID. Supports JSON or multipart form with optional photo upload.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: contactId
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../../components/schemas/contactUpdate.yaml'
+    multipart/form-data:
+      schema:
+        allOf:
+          - $ref: '../../../components/schemas/contactUpdate.yaml'
+          - type: object
+            properties:
+              photo:
+                type: string
+                format: binary
+responses:
+  '200':
+    description: Contact updated
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [status, message, data]
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully updated contact!
+            data:
+              $ref: '../../../components/schemas/contact.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

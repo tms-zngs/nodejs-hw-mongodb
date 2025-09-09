@@ -1,0 +1,53 @@
+type: object
+required:
+  - name
+  - phoneNumber
+  - contactType
+  - userId
+properties:
+  id:
+    type: string
+    description: Unique contact identifier (Mongo ObjectId)
+    example: '66f0a7f1c0b5a9e1f2d3c4b5'
+  name:
+    type: string
+    description: Contact name
+    example: 'Thomas'
+  phoneNumber:
+    type: string
+    description: Phone number in international format
+    example: '+49 151 23456789'
+  email:
+    type: string
+    format: email
+    description: Contact email
+    example: 'thomas@example.com'
+  isFavourite:
+    type: boolean
+    description: Whether the contact is marked as favourite
+    default: false
+    example: true
+  contactType:
+    type: string
+    description: Contact type category
+    enum: [work, home, personal]
+    default: personal
+    example: work
+  photo:
+    type: string
+    description: URL to the contact photo
+    example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'
+  userId:
+    type: string
+    description: Owner user ID (Mongo ObjectId)
+    example: '66f0a7f1c0b5a9e1f2d3c4b5'
+  createdAt:
+    type: string
+    format: date-time
+    description: Creation timestamp
+    example: '2025-09-09T12:34:56.000Z'
+  updatedAt:
+    type: string
+    format: date-time
+    description: Last update timestamp
+    example: '2025-09-09T12:34:56.000Z'
